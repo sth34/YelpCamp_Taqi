@@ -1,0 +1,30 @@
+
+.thumbnail img {
+	width: 100%;
+}
+.thumbnail {
+	padding: 0;
+}
+
+.thumbnail .caption-full {
+	padding: 9px;
+}
+
+#commentmargin {
+	margin: 5px;
+}
+
+.delete-form {
+	display: inline;
+}
+
+.hr-comment {
+	border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+.checked {
+    color: orange;
+}
+
