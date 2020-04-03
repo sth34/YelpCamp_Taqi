@@ -78,6 +78,17 @@ router.get("/profile/:id", function(req, res){
 		});
 
 });
+// About page route
+
+router.get("/about", function(req, res){
+	res.render("about");
+});
+
+// Tips page route
+
+router.get("/tips", function(req, res){
+	res.render("tips");
+});
 
 //function to stop unauthorized login to YelpCamp pages
 function isLoggedIn(req, res, next){
