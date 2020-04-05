@@ -8,8 +8,13 @@
             <p>
                 <a class="btn btn-primary btn-large" href="/campgrounds/new">Add New Campground</a>
             </p>
+			<%if (campgrounds.length < 1) {%>
+			<p style = "text-align: center; color: red">
+				<%=message%>
+			</p>
+		<%}%>
         </div>
-    </header>
+	</header>
 
     <div class="row text-center" style="display:flex; flex-wrap: wrap;">
         <% campgrounds.forEach(function(campground){ %>

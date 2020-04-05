@@ -8,6 +8,24 @@ var middleware = require("../middleware");
 
 //INDEX - show all campgrounds
 router.get("/", function (req, res) {
+	// Get the searched one campground from DB
+	if (req.query.search) {
+		var regex = new RegExp(escapeRegex(req.query.search), "gi");
+		Campground.find({name: regex}, function(err, allCampgrounds){
+			if (err) {
+				console.log (err);
+			} else {
+				if (allCampgrounds.length < 1) {
+					var noMatch = "Not found the searched results !!";
+	
+				}
+				
+				res.render("campgrounds", {campgrounds: allCampgrounds, message: noMatch});
+			}
+			
+		});
+	} else {
+	
     // Get all campgrounds from DB
     Campground.find({}, function (err, allCampgrounds) {
         if (err) {
@@ -16,7 +34,10 @@ router.get("/", function (req, res) {
             res.render("campgrounds", {campgrounds: allCampgrounds});
         }
     });
+		
+	}
 });
+
 
 //CREATE - add new campground to DB
 router.post("/", middleware.isLoggedIn, function (req, res) {
@@ -110,5 +131,12 @@ router.delete("/:id", middleware.checkCampgroundOwnership, function (req, res) {
         }
     });
 });
+
+// Funtion for fuzzy search text eliminator
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
+
 
 module.exports = router;

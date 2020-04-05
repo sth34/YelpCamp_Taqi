@@ -9,7 +9,11 @@ body {
 	padding: 5px;
    
 }
-	
+
+.formsearch {
+	margin-top: 12px;
+}
+
 }
 .thumbnail img {
 	width: 100%;
