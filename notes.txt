@@ -1,0 +1,6 @@
+create password change app
+# get old password
+	create form for updation
+# authorize and update
+	post route and validate the authentication and update 
+

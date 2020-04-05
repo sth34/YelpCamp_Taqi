@@ -3,6 +3,8 @@ var router = express.Router();
 var passport = require("passport")
 var User = require("../models/user");
 var Campground = require("../models/campground");
+var crypto = require("crypto");
+var async = require("async");
 
 router.get("/", function(req, res){
 	res.render("landing");
@@ -58,6 +60,7 @@ router.get("/logout", function(req, res){
 	res.redirect("/campgrounds");
 });
 
+
 // Profile route
 
 router.get("/profile/:id", function(req, res){
@@ -78,6 +81,47 @@ router.get("/profile/:id", function(req, res){
 		});
 
 });
+
+// Change password
+router.get("/profile/:id/changepass", function(req, res){
+	User.findById(req.param.id, function(err, foundUser){
+		if (err) {
+			res.redirect("back");
+		} else {
+			res.render("password/change", {user: foundUser});
+		}
+	});
+	
+});
+
+// Update password
+router.put("/profile/:id", function(req, res){
+	User.findById(req.params.id, function(err, user){
+		 if (req.body.password === req.body.confirm) {
+			user.setPassword(req.body.password, function(err) {
+			user.save(function(err){
+			req.login(user, function(err) {
+							
+			});
+				if (err) {
+					req.flash("error", "Something Went Wrong!");
+					res.redirect("/login");
+				} else {
+					req.flash("success", "Password reset successfully!");
+					res.redirect("/login");
+				}
+			
+			});
+			
+		});
+			 
+		 }
+	});
+});
+		
+		
+		
+
 // About page route
 
 router.get("/about", function(req, res){
@@ -90,6 +134,7 @@ router.get("/tips", function(req, res){
 	res.render("tips");
 });
 
+
 //function to stop unauthorized login to YelpCamp pages
 function isLoggedIn(req, res, next){
 	if(req.isAuthenticated()){
@@ -97,8 +142,6 @@ function isLoggedIn(req, res, next){
 	}
 	res.redirect("/login");
 }
-
-
 
 //function to check ownership
 function checkCampOwnership(req, res, next){

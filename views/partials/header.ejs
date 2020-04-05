@@ -31,6 +31,12 @@
 			  <li class="<%= typeof page !== 'undefined' && page === 'campgrounds' ? 'active' : '' %>"><a href="/tips"><span class="glyphicon glyphicon-pencil"></span> Tips</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+			   <li>
+				  <form action="/campgrounds" method="get" >
+					 <input type="text" name="search" placeholder="search campgrounds" class="formsearch">
+					  <input type="submit" value="Search" class="btn btn-sm btn-primary">
+				  </form>
+			  </li>
               <% if(!currentUser){ %>
                   <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="/login">Login</a></li>
                   <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a href="/register">Sign Up</a></li>
@@ -63,7 +69,7 @@
                                     </div>
                                 </li>
                                 <li><a class="hov" href="/campgrounds">Account Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
-                                <li><a class="hov" href="/campgrounds">Change Password <span class="glyphicon glyphicon-lock pull-right"></span></a></li>
+                                <li><a class="hov" href="/profile/<%=currentUser.id%>/changepass">Change Password <span class="glyphicon glyphicon-lock pull-right"></span></a></li>
                                 <li><a class="hov" href="/logout">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
                             </ul>
                         </li>
