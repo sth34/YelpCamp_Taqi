@@ -46,22 +46,21 @@ app.use(function(req,  res, next) {
 	next();
 });
 
-app.use("/", indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/reviews", reviewRoutes);
+app.use("/", indexRoutes);
 
+//Run the server
+//============================================================
 
-app.listen(3000, function(){
-	console.log("YelpCamp Server Started!")
+const port = process.env.PORT || 3000;
+const ip = process.env.IP || "0.0.0.0";
 
+// app.listen(3000,"localhost",function()
+app.listen(port, ip, function()
+{
+    console.log(`Server running at http://${ip}:${port}`);
 });
 
-// RESTFUL ROUTES
 
-// Name       	url      			verb       	description
-// ===============================================================================	
-// INDEX		/campgrounds		GET			Display a list of all Campgrounds
-// NEW			/campgrounds/new	GET			Display Form to create new Campgrounds
-// CREATE		/campgrounds		POST		Add new campgrounds to DB
-// SHOW			/campgrounds/:id	GET			Show info about one campground
-	
+module.exports = app;
